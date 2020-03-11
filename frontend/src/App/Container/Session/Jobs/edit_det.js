@@ -8,43 +8,49 @@ class edit extends React.Component {
     super(props);
     this.state = {
       setShow: false,
-      tprof_pic: '',
-      comp_name: '',
+      job_title: '',
       location: '',
       des: '',
-      type: '',
-      no: '',
-      web: '',
-      email: '',
-      owner: ''
+      job_cat: 'Internship',
+      paid: 'PartTime',
+      post: '',
+      salary: '',
+      deadline: ''
     };
   }
 
   updatePers = e => {
     e.preventDefault();
     const data = {
-      comp_name: this.state.comp_name,
+      job_title: this.state.job_title,
       location: this.state.location,
+      deadline: this.state.deadline,
       des: this.state.des,
-      type: this.state.type,
-      no: this.state.no,
-      web: this.state.web,
-      email: this.state.email,
-      owner: this.state.owner,
-      id: cookie.load('cookie'),
-      prof_pic: this.state.tprof_pic
+      job_cat: this.state.job_cat,
+      paid: this.state.paid,
+      post: this.state.post,
+      salary: this.state.salary,
+      id: cookie.load('cookie')
     };
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios
-      .post('http://localhost:8000/updateCompany', data)
+      .post('http://localhost:8000/insertJob', data)
       .then(response => {
         console.log('Status Code : ', response.status);
         if (response.status === 200) {
           this.setState({
             error: '',
-            authFlag: true
+            authFlag: true,
+            job_title: '',
+            location: '',
+            des: '',
+            job_cat: 'Internship',
+            paid: 'FullTime',
+            post: '',
+            salary: '',
+            deadline: ''
           });
           this.handleClose();
         } else {
@@ -61,9 +67,9 @@ class edit extends React.Component {
         });
       });
   };
-  compName = e => {
+  job_title = e => {
     this.setState({
-      comp_name: e.target.value
+      job_title: e.target.value
     });
   };
 
@@ -79,50 +85,34 @@ class edit extends React.Component {
     });
   };
 
-  type = e => {
+  job_cat = e => {
     this.setState({
-      type: e.target.value
+      job_cat: e.target.value
     });
   };
 
-  noofemp = e => {
+  paid = e => {
     this.setState({
-      no: e.target.value
+      paid: e.target.value
     });
   };
 
-  website = e => {
+  post = e => {
     this.setState({
-      web: e.target.value
+      post: e.target.value
     });
   };
 
-  owner = e => {
+  salary = e => {
     this.setState({
-      owner: e.target.value
+      salary: e.target.value
     });
   };
 
-  email = e => {
+  deadline = e => {
     this.setState({
-      email: e.target.value
+      deadline: e.target.value
     });
-  };
-
-  handleFileUpload = event => {
-    let data = new FormData();
-    console.log(event.target.files[0]);
-    data.append('file', event.target.files[0]);
-    data.append('name', 'prof_pic');
-    axios
-      .post('http://localhost:8000/files', data)
-      .then(response => {
-        console.log(response);
-        this.setState({
-          tprof_pic: response.data
-        });
-      })
-      .catch(error => console.log('error ' + error));
   };
 
   handleClose = () => {
@@ -133,16 +123,7 @@ class edit extends React.Component {
 
   componentDidMount() {
     this.setState({
-      setShow: this.props.show,
-      comp_name: this.props.data[0].company_name,
-      location: this.props.data[0].company_location,
-      des: this.props.data[0].company_description,
-      type: this.props.data[0].company_type,
-      no: this.props.data[0].noofemp,
-      web: this.props.data[0].website,
-      email: this.props.data[0].email,
-      owner: this.props.data[0].ownership,
-      tprof_pic: this.props.data[0].prof_pic
+      setShow: this.props.show
     });
   }
 
@@ -164,12 +145,12 @@ class edit extends React.Component {
         <Modal.Body style={{ overflowY: 'scroll' }}>
           <Form classname="top-10">
             <Form.Group controlId="formCompanyName">
-              <Form.Label>Company Name</Form.Label>
+              <Form.Label>Job Title</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Company Name"
-                value={this.state.comp_name}
-                onChange={this.compName}
+                placeholder="Enter Job Title"
+                value={this.state.job_title}
+                onChange={this.job_title}
               />
             </Form.Group>
             <Form.Group controlId="formLocation">
@@ -182,59 +163,53 @@ class edit extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="formType">
-              <Form.Label>Company Type</Form.Label>
+              <Form.Label>Application Deadline</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Type"
-                value={this.state.type}
-                onChange={this.type}
+                placeholder="Enter Application Deadline"
+                value={this.state.deadline}
+                onChange={this.deadline}
               />
             </Form.Group>
             <Form.Group controlId="formCnt">
-              <Form.Label>No of Employees </Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Employee Count"
-                value={this.state.no}
-                onChange={this.noofemp}
-              />
+              <Form.Label>PartTime/Full Time</Form.Label>
+              <Form.Control as="select" onChange={this.paid}>
+                <option value="FullTime">Full Time</option>
+                <option value="PartTime">Part Time</option>
+              </Form.Control>
             </Form.Group>
             <Form.Group controlId="formOwnership">
-              <Form.Label>Ownership Type </Form.Label>
+              <Form.Label>Job Category</Form.Label>
+              <Form.Control as="select" onChange={this.job_cat}>
+                <option value="Internship">Intern</option>
+                <option value="OnCampus">OnCampus</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="formWebsite">
+              <Form.Label>Posting Date</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Ownership Type"
-                value={this.state.owner}
-                onChange={this.owner}
+                placeholder="Enter Posting Date"
+                value={this.state.post}
+                onChange={this.post}
               />
             </Form.Group>
             <Form.Group controlId="formWebsite">
-              <Form.Label>Website</Form.Label>
+              <Form.Label>Salary</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Website"
-                value={this.state.web}
-                onChange={this.web}
-              />
-            </Form.Group>
-            <Form.Group controlId="formEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                value={this.state.email}
-                onChange={this.email}
+                placeholder="Enter Posting Date"
+                value={this.state.salary}
+                onChange={this.salary}
               />
             </Form.Group>
             <Form.Group controlId="formWebsite">
-              <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows="3" value={this.state.des} />
-            </Form.Group>
-            <Form.Group controlId="formFile">
+              <Form.Label>Job Description</Form.Label>
               <Form.Control
-                name="resume"
-                type="file"
-                onChange={this.handleFileUpload}
+                as="textarea"
+                rows="3"
+                value={this.state.des}
+                onChange={this.desc}
               />
             </Form.Group>
           </Form>

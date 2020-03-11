@@ -47,6 +47,13 @@ export const updateJobFilter = x => {
   };
 };
 
+export const updateEventsFilter = x => {
+  return {
+    type: 'filterEventsUpdate',
+    newState: x
+  };
+};
+
 export const updateCityFilter = x => {
   return {
     type: 'filterCityUpdate',
@@ -78,5 +85,17 @@ export const updateMajor = x => {
 export const getMyJobs = () => {
   return {
     type: 'filterMyJobs'
+  };
+};
+
+export const getAppliedEvents = () => {
+  return {
+    type: 'filterAppliedEvents'
+  };
+};
+
+export const getMyEvents = () => {
+  return {
+    type: 'filterMyEvents'
   };
 };

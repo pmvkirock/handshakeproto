@@ -14,7 +14,7 @@ import {
   Logout,
   OnCampus,
   Internship,
-  updateJobFilter,
+  updateEventsFilter,
   updateCityFilter,
   getMyJobs
 } from '../../../../actions';
@@ -33,7 +33,7 @@ class Filter extends React.Component {
   }
 
   jobChange = e => {
-    this.props.dispatch(updateJobFilter(e.target.value));
+    this.props.dispatch(updateEventsFilter(e.target.value));
   };
 
   cityChange = e => {
@@ -67,7 +67,7 @@ class Filter extends React.Component {
           }}
           active={this.state.MyJobs}
         >
-          My Jobs
+          My Events
         </Button>
       );
     }
@@ -78,7 +78,7 @@ class Filter extends React.Component {
             <Row>
               <Col>
                 <Form.Control
-                  placeholder="Search for Job Titles"
+                  placeholder="Search for Events"
                   onChange={this.jobChange}
                 />
               </Col>
@@ -100,63 +100,7 @@ class Filter extends React.Component {
                     }}
                     active={this.state.allJobs}
                   >
-                    All Jobs
-                  </Button>
-                  <Button
-                    className="mleft-10"
-                    variant="outline-primary"
-                    onClick={() => {
-                      this.props.dispatch(FullTime());
-                      this.deactivateActive();
-                      this.setState({
-                        FullTime: true
-                      });
-                    }}
-                    active={this.state.FullTime}
-                  >
-                    Full Time
-                  </Button>
-                  <Button
-                    className="mleft-10"
-                    variant="outline-primary"
-                    onClick={() => {
-                      this.props.dispatch(PartTime());
-                      this.deactivateActive();
-                      this.setState({
-                        PartTime: true
-                      });
-                    }}
-                    active={this.state.PartTime}
-                  >
-                    Part Time
-                  </Button>
-                  <Button
-                    className="mleft-10"
-                    variant="outline-primary"
-                    onClick={() => {
-                      this.props.dispatch(OnCampus());
-                      this.deactivateActive();
-                      this.setState({
-                        OnCampus: true
-                      });
-                    }}
-                    active={this.state.OnCampus}
-                  >
-                    On Campus
-                  </Button>
-                  <Button
-                    className="mleft-10"
-                    variant="outline-primary"
-                    onClick={() => {
-                      this.props.dispatch(Internship());
-                      this.deactivateActive();
-                      this.setState({
-                        Internship: true
-                      });
-                    }}
-                    active={this.state.Internship}
-                  >
-                    Internship
+                    All Events
                   </Button>
                   {myJobs}
                 </ButtonToolbar>
@@ -172,8 +116,7 @@ class Filter extends React.Component {
 const mapStateToProps = function(state) {
   return {
     getJobFilterPartFull: state.getJobFilterPartFull,
-    updateJobFilter: state.updateJobFilter,
-    updateCityFilter: state.updateCityFilter,
+    updateEventsFilter: state.updateEventsFilter,
     getType: state.getType
   };
 };

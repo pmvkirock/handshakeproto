@@ -8,7 +8,10 @@ class Contact extends React.Component {
     this.state = { setShow: false };
   }
 
-  handleClose = () => this.setState({ setShow: false });
+  handleClose = () => {
+    this.props.getInfo();
+    this.setState({ setShow: false });
+  };
   handleShow = () => {
     this.setState({ setShow: true });
   };

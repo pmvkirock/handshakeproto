@@ -1,4 +1,4 @@
-const getType = (state = 'Company', action) => {
+const getType = (state = 'Student', action) => {
   switch (action.type) {
     case 'CompanyType':
       return 'Company';

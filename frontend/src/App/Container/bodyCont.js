@@ -9,6 +9,7 @@ import Jobs from './Session/Jobs';
 import Students from './Session/AllStudents/container';
 import Stud_Prof from './Session/AllStudents/Profile/profile';
 import Company_Prof from './Session/Companies/Profile/container';
+import Events from './Session/Events';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 //import cookie from 'react-cookies';
@@ -46,6 +47,7 @@ class bodyCont extends React.Component {
             <Route path="/all_students">
               <Students />
             </Route>
+            <Route path="/events" component={Events} />
           </div>
         </div>
       </div>

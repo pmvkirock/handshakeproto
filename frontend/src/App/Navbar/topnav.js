@@ -29,7 +29,7 @@ class Topnav extends React.Component {
     //console.log(this.props.getType);
     var xnav;
     let redirectVar = null;
-    if (cookie.load('cookie')) redirectVar = <Redirect to="/stud_prof" />;
+    if (cookie.load('cookie')) redirectVar = <Redirect to="/home" />;
     else redirectVar = <Redirect to="/login" />;
     if (cookie.load('cookie')) {
       xnav = (
@@ -46,7 +46,9 @@ class Topnav extends React.Component {
             <Nav.Link className="custom-nav">
               <Link to="/home">Jobs</Link>
             </Nav.Link>
-            <Nav.Link className="custom-nav">Events</Nav.Link>
+            <Nav.Link className="custom-nav">
+              <Link to="/events">Events</Link>
+            </Nav.Link>
             <Nav.Link className="custom-nav">
               <Link to="/all_students">Students</Link>
             </Nav.Link>

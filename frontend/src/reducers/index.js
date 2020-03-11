@@ -6,6 +6,7 @@ import getCityFilter from './getCityFilter';
 import getStudFilter from './getStudFilter';
 import getSchoolFilter from './getSchoolFilter';
 import getMajorFilter from './getMajorFilter';
+import getEventsFilter from './getEventFilter';
 
 const allReducers = combineReducers({
   getType: getType,
@@ -14,7 +15,8 @@ const allReducers = combineReducers({
   getCityFilter: getCityFilter,
   getStudFilter: getStudFilter,
   getSchoolFilter: getSchoolFilter,
-  getMajorFilter: getMajorFilter
+  getMajorFilter: getMajorFilter,
+  getEventsFilter: getEventsFilter
 });
 
 export default allReducers;

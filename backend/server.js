@@ -17,7 +17,7 @@ const insert = require("./insert");
 const login = require("./login");
 const jobs = require("./jobs");
 const students = require("./student");
-
+const events = require("./events");
 app.get("/", (req, res) => res.send("Hello World!"));
 
 //use cors to allow cross origin resource sharing
@@ -177,6 +177,12 @@ app.get("/getCompany", function(req, res) {
   get.getComp(con, req, res);
 });
 
+app.post("/updateCompany", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var get = new comp.company();
+  get.updatebasicinfo(con, req, res);
+});
+
 app.get("/getAllJobs", function(req, res) {
   console.log("Req Body : ", req.body);
   var job = new jobs.jobs();
@@ -195,6 +201,12 @@ app.post("/insertAppli", function(req, res) {
   job.apply_jobs(con, req, res);
 });
 
+app.post("/insertJob", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new jobs.jobs();
+  job.insertJob(con, req, res);
+});
+
 app.get("/getAllStudents", function(req, res) {
   console.log("Req Body : ", req.body);
   var student = new students.students();
@@ -205,6 +217,24 @@ app.get("/getApplied", function(req, res) {
   console.log("Req Body : ", req.body);
   var job = new jobs.jobs();
   job.getApplied(con, req, res);
+});
+
+app.get("/getAllEvents", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new events.events();
+  job.getAllEvents(con, req, res);
+});
+
+app.get("/getEvents", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new events.events();
+  job.getEvents(con, req, res);
+});
+
+app.post("/insertEvent", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new events.events();
+  job.insertEvent(con, req, res);
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

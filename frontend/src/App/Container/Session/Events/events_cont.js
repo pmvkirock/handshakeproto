@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import cookie from 'react-cookies';
 import NewJob from './edit_det';
 
-import Job from './job';
-import JobDes from './job_des';
+import Job from './event';
+import JobDes from './events_des';
 
 class JobCont extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class JobCont extends React.Component {
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios
-      .get('http://localhost:8000/getAllJobs')
+      .get('http://localhost:8000/getAllEvents')
       .then(response => {
         if (response.status === 200) {
           this.setState({
@@ -97,36 +97,19 @@ class JobCont extends React.Component {
     }
     var printJobs = this.state.data.map(
       ({
-        idjob,
-        job_title,
-        deadline,
+        idevents,
+        event_name,
+        event_des,
+        time,
+        date,
         location,
-        salary,
-        job_des,
-        job_cat,
-        paid,
+        eligibility,
         company_name,
         email,
         idcompany
       }) => {
         let showJob;
         switch (this.props.getJobFilterPartFull) {
-          case 'PartTime':
-            if (paid == 'PartTime') showJob = 'ShowForm';
-            else showJob = 'HideForm';
-            break;
-          case 'FullTime':
-            if (paid == 'FullTime') showJob = 'ShowForm';
-            else showJob = 'HideForm';
-            break;
-          case 'OnCampus':
-            if (job_cat == 'OnCampus') showJob = 'ShowForm';
-            else showJob = 'HideForm';
-            break;
-          case 'Internship':
-            if (job_cat == 'Internship') showJob = 'ShowForm';
-            else showJob = 'HideForm';
-            break;
           case 'MyJobs':
             if (idcompany == cookie.load('cookie')) showJob = 'ShowForm';
             else showJob = 'HideForm';
@@ -138,27 +121,26 @@ class JobCont extends React.Component {
             showJob = 'ShowForm';
             break;
         }
-        let regexJob = new RegExp(this.props.getJobFilter, 'gi');
-        if (job_title.match(regexJob) == null) showJob = 'HideForm';
+        let regexJob = new RegExp(this.props.getEventsFilter, 'gi');
+        if (event_name.match(regexJob) == null) showJob = 'HideForm';
         let regexCity = new RegExp(this.props.getCityFilter, 'gi');
         if (location.match(regexCity) == null) showJob = 'HideForm';
         return (
           <a
-            indexkey={idjob}
-            onClick={() => this.handleJob(idjob, idcompany)}
+            indexkey={idevents}
+            onClick={() => this.handleJob(idevents, idcompany)}
             className="jobCont"
-            key={idjob}
+            key={idevents}
             href={'#'}
           >
             <Job
-              data-key={idjob}
-              job_title={job_title}
-              deadline={deadline}
+              data-key={idevents}
+              event_name={event_name}
+              event_des={event_des}
               location={location}
-              salary={salary}
-              job_des={job_des}
-              job_cat={job_cat}
-              paid={paid}
+              time={time}
+              date={date.split('T')[0]}
+              eligibility={eligibility}
               company_name={company_name}
               email={email}
               show={showJob}
@@ -184,7 +166,11 @@ class JobCont extends React.Component {
           />
         </Col>
         {add}
-        <NewJob show={this.state.setShow} handleClose={this.handleClose} />
+        <NewJob
+          show={this.state.setShow}
+          handleClose={this.handleClose}
+          getInfo={this.getInfo}
+        />
       </Row>
     );
   }
@@ -193,8 +179,8 @@ class JobCont extends React.Component {
 const mapStateToProps = function(state) {
   return {
     getJobFilterPartFull: state.getJobFilterPartFull,
-    getJobFilter: state.getJobFilter,
     getCityFilter: state.getCityFilter,
+    getEventsFilter: state.getEventsFilter,
     getType: state.getType
   };
 };

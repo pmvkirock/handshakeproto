@@ -56,14 +56,24 @@ class Primary extends React.Component {
         noofemp,
         website,
         email,
-        ownership
+        ownership,
+        prof_pic
       }) => {
+        var pic;
+        if (prof_pic == '') {
+          pic = '/profile.png';
+        } else {
+          pic =
+            `http://localhost:8000/prof_pic/` +
+            prof_pic.replace('prof_pic', 'file') +
+            `.jpeg`;
+        }
         return (
           <Container key={idcompany}>
             <Row className={'padding-bottom-15 background'}>
               <Col xl={1}>
                 <img
-                  src="/profile.png"
+                  src={pic}
                   alt="user pic"
                   style={{ width: 70 + 'px', marginTop: 20 + 'px' }}
                 />
@@ -94,10 +104,15 @@ class Primary extends React.Component {
             </Row>
             <Row className="top-10">
               <Col xl={8} style={{ paddingLeft: 0 + 'px' }}>
-                <Desc des={company_description} data={this.state.data[0]} />
+                <Desc des={company_description} />
               </Col>
               <Col xl={4} style={{ paddingRight: 0 + 'px' }}>
-                <Contact email={email} website={website} />
+                <Contact
+                  email={email}
+                  website={website}
+                  data={this.state.data}
+                  getInfo={this.getInfo}
+                />
               </Col>
             </Row>
           </Container>
