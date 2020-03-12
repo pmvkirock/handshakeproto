@@ -48,7 +48,8 @@ class apply extends React.Component {
       idstudent: cookie.load('cookie'),
       idjob: this.props.idjob,
       idcompany: this.props.idcompany,
-      resume: this.state.tprof_pic
+      resume: this.state.tprof_pic,
+      status: 'Pending'
     };
     //set the with credentials to true
     axios.defaults.withCredentials = true;

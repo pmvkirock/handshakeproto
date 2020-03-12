@@ -8,7 +8,9 @@ import {
   StudentType,
   Logout,
   updateJobFilter,
-  updateCityFilter
+  updateCityFilter,
+  getFName,
+  getProfPic
 } from '../../actions';
 
 class Topnav extends React.Component {
@@ -23,15 +25,23 @@ class Topnav extends React.Component {
     this.props.dispatch(Logout());
     this.props.dispatch(updateJobFilter(''));
     this.props.dispatch(updateCityFilter(''));
+    this.props.dispatch(getFName(''));
+    this.props.dispatch(getProfPic(''));
   };
 
   render() {
-    //console.log(this.props.getType);
     var xnav;
     let redirectVar = null;
     if (cookie.load('cookie')) redirectVar = <Redirect to="/home" />;
     else redirectVar = <Redirect to="/login" />;
     if (cookie.load('cookie')) {
+      var prof_pic = '/profile.png';
+      if (this.props.getProfPic != '') {
+        prof_pic =
+          `http://localhost:8000/prof_pic/` +
+          this.props.getProfPic.replace('Prof_Pic', 'file') +
+          `.jpeg`;
+      }
       xnav = (
         <Navbar.Collapse id="basic-navbar-nav">
           <Form inline className="mr-auto">
@@ -55,9 +65,9 @@ class Topnav extends React.Component {
             <NavDropdown
               title={
                 <img
-                  src="/profile.png"
+                  src={prof_pic}
                   alt="user pic"
-                  style={{ width: 40 + 'px' }}
+                  style={{ width: 40 + 'px', borderRadius: 50 + '%' }}
                 />
               }
               id="collasible-nav-dropdown"
@@ -65,8 +75,12 @@ class Topnav extends React.Component {
               <NavDropdown.Item>
                 <Link to="/stud_prof">Profile</Link>
               </NavDropdown.Item>
-              <NavDropdown.Item>My Applications</NavDropdown.Item>
-              <NavDropdown.Item>My Events</NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/myapp">My Applications</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/myevents">My Events</Link>
+              </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item>
                 <Link to="/" onClick={this.handleLogout}>
@@ -140,7 +154,9 @@ class Topnav extends React.Component {
 
 const mapStateToProps = function(state) {
   return {
-    getType: state.getType
+    getType: state.getType,
+    getFName: state.getFName,
+    getProfPic: state.getProfPic
   };
 };
 

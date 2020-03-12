@@ -28,6 +28,46 @@ class JobDes extends React.Component {
     this.setState({ setShowApplied: true });
   };
 
+  applyJob = e => {
+    e.preventDefault();
+    const data = {
+      idstudent: cookie.load('cookie'),
+      idjob: this.props.idjob,
+      idcompany: this.props.idcompany
+    };
+    if (this.props.getMajor == this.state.data[0].eligibility) {
+      //set the with credentials to true
+      axios.defaults.withCredentials = true;
+      //make a post request with the user data
+      axios
+        .post('http://localhost:8000/insertAppliEvents', data)
+        .then(response => {
+          console.log('Status Code : ', response.status);
+          if (response.status === 200) {
+            this.setState({
+              error: '',
+              authFlag: true
+            });
+            this.handleClose();
+            alert('Applied successfully major');
+          } else {
+            this.setState({
+              error:
+                '<p style={{color: red}}>Please enter correct credentials</p>',
+              authFlag: false
+            });
+          }
+        })
+        .catch(e => {
+          this.setState({
+            error: 'Please enter correct credentials' + e
+          });
+        });
+    } else {
+      alert('You are not eligible for this major');
+    }
+  };
+
   getInfo = () => {
     axios.defaults.withCredentials = true;
     //make a post request with the user data
@@ -110,7 +150,7 @@ class JobDes extends React.Component {
       x = (
         <Button
           style={{ float: 'right', padding: 5 + 'px' }}
-          onClick={this.handleShow}
+          onClick={this.applyJob}
         >
           Apply Now
         </Button>
@@ -160,7 +200,8 @@ class JobDes extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    getType: state.getType
+    getType: state.getType,
+    getMajor: state.getMajor
   };
 };
 

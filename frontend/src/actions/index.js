@@ -40,6 +40,24 @@ export const Logout = () => {
   };
 };
 
+export const pending = () => {
+  return {
+    type: 'Pending'
+  };
+};
+
+export const reviewed = () => {
+  return {
+    type: 'Reviewed'
+  };
+};
+
+export const declined = () => {
+  return {
+    type: 'Declined'
+  };
+};
+
 export const updateJobFilter = x => {
   return {
     type: 'filterJobUpdate',
@@ -97,5 +115,26 @@ export const getAppliedEvents = () => {
 export const getMyEvents = () => {
   return {
     type: 'filterMyEvents'
+  };
+};
+
+export const getProfPic = x => {
+  return {
+    type: 'getProfPic',
+    newState: x
+  };
+};
+
+export const getMajor = x => {
+  return {
+    type: 'getMajor',
+    newState: x
+  };
+};
+
+export const getFName = x => {
+  return {
+    type: 'getFName',
+    newState: x
   };
 };

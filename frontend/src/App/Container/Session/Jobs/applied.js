@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Container, Row, Col } from 'react-bootstrap';
+import { Modal, Button, Container, Row, Col, Form } from 'react-bootstrap';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import { Link } from 'react-router-dom';
@@ -18,8 +18,51 @@ class apply extends React.Component {
       this.setState({
         setShow: this.props.show
       });
+      this.applyJob();
     }
   }
+
+  job_cat = e => {
+    e.preventDefault();
+    var data = {
+      idjob: this.props.idjob,
+      idstudent: this.state.data[0].idstudent,
+      status: e.target.value,
+      idcompany: cookie.load('cookie')
+    };
+    if (
+      data.idstudent != undefined &&
+      data.idjob != undefined &&
+      data.idcompany != undefined &&
+      data.status != undefined
+    ) {
+      //set the with credentials to true
+      axios.defaults.withCredentials = true;
+      //make a post request with the user data
+      axios
+        .post('http://localhost:8000/updateApplied', data)
+        .then(response => {
+          console.log('Status Code : ', response.status);
+          if (response.status === 200) {
+            this.setState({
+              error: '',
+              authFlag: true
+            });
+          } else {
+            this.setState({
+              error:
+                '<p style={{color: red}}>Please enter correct credentials</p>',
+              authFlag: false
+            });
+          }
+        })
+        .catch(e => {
+          this.setState({
+            error: 'Please enter correct credentials' + e
+          });
+        });
+    }
+  };
 
   applyJob = () => {
     //set the with credentials to true
@@ -27,7 +70,10 @@ class apply extends React.Component {
     //make a post request with the user data
     axios
       .get(
-        'http://localhost:8000/getApplied?idcompany=' + cookie.load('cookie')
+        'http://localhost:8000/getApplied?idcompany=' +
+          cookie.load('cookie') +
+          '&idjob=' +
+          this.props.idjob
       )
       .then(response => {
         console.log('Status Code : ', response.status);
@@ -37,7 +83,6 @@ class apply extends React.Component {
             authFlag: true,
             data: response.data
           });
-          this.handleClose();
         } else {
           this.setState({
             error:
@@ -54,7 +99,6 @@ class apply extends React.Component {
   };
 
   componentDidMount() {
-    this.applyJob();
     this.setState({
       setShow: this.props.show
     });
@@ -94,6 +138,13 @@ class apply extends React.Component {
                     </Row>
                   </Col>
                 </Row>
+                <Form.Group controlId="formOwnership">
+                  <Form.Control as="select" onChange={this.job_cat}>
+                    <option value="Pending">Pending</option>
+                    <option value="Reviewed">Reviewed</option>
+                    <option value="Declined">Declined</option>
+                  </Form.Control>
+                </Form.Group>
               </Container>
             </Col>
             <Col xl={3}>

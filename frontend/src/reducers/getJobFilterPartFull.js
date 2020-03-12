@@ -10,6 +10,12 @@ const getJobFilterPartFull = (state = 'None', action) => {
       return 'OnCampus';
     case 'filterMyJobs':
       return 'MyJobs';
+    case 'Pending':
+      return 'Pending';
+    case 'Reviewed':
+      return 'Reviewed';
+    case 'Declined':
+      return 'Declined';
     case 'Logout':
       return 'None';
     default:

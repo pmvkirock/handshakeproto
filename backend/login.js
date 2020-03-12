@@ -5,9 +5,9 @@ var login = class login {
     console.log("Connected!");
 
     var sql =
-      "SELECT idstudent, stud_password FROM student where email_ID = '" +
+      "SELECT a.First_Name, a.idstudent, a.stud_password, a.prof_pic, b.major FROM student a, student_edu b where email_ID = '" +
       req.body.username +
-      "'";
+      "' and a.idstudent = b.idstudent and b.primary_edu = 'Yes'";
     var pass, id;
     con.query(sql, function(err, result, fields) {
       if (err) throw err;
@@ -20,11 +20,12 @@ var login = class login {
           httpOnly: false,
           path: "/"
         });
-        req.session.user = id;
+
         res.writeHead(200, {
           "Content-Type": "text/plain"
         });
-        res.end("Successful Login");
+
+        res.end(JSON.stringify(result));
       } else {
         res.writeHead(401, {
           "Content-Type": "text/plain"

@@ -219,6 +219,18 @@ app.get("/getApplied", function(req, res) {
   job.getApplied(con, req, res);
 });
 
+app.get("/getAppliedJobs", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new jobs.jobs();
+  job.getAppliedJob(con, req, res);
+});
+
+app.post("/updateApplied", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new jobs.jobs();
+  job.updateJobs(con, req, res);
+});
+
 app.get("/getAllEvents", function(req, res) {
   console.log("Req Body : ", req.body);
   var job = new events.events();
@@ -235,6 +247,24 @@ app.post("/insertEvent", function(req, res) {
   console.log("Req Body : ", req.body);
   var job = new events.events();
   job.insertEvent(con, req, res);
+});
+
+app.post("/insertAppliEvents", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new events.events();
+  job.apply_events(con, req, res);
+});
+
+app.get("/getAppliedEvents", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new events.events();
+  job.getAppliedEvents(con, req, res);
+});
+
+app.get("/getMyEvents", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new events.events();
+  job.getMyEvents(con, req, res);
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

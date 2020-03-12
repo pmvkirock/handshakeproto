@@ -7,6 +7,9 @@ import getStudFilter from './getStudFilter';
 import getSchoolFilter from './getSchoolFilter';
 import getMajorFilter from './getMajorFilter';
 import getEventsFilter from './getEventFilter';
+import getMajor from './getMajor';
+import getProfPic from './getProfPic';
+import getFName from './getFName';
 
 const allReducers = combineReducers({
   getType: getType,
@@ -16,7 +19,10 @@ const allReducers = combineReducers({
   getStudFilter: getStudFilter,
   getSchoolFilter: getSchoolFilter,
   getMajorFilter: getMajorFilter,
-  getEventsFilter: getEventsFilter
+  getEventsFilter: getEventsFilter,
+  getMajor: getMajor,
+  getProfPic: getProfPic,
+  getFName: getFName
 });
 
 export default allReducers;

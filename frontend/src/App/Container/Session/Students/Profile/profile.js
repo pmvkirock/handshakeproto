@@ -5,6 +5,7 @@ import cookie from 'react-cookies';
 import Education from './education_prof';
 import Experience from './job_prof';
 import Primary from './primary';
+import Skills from './skills';
 
 class Stud_Profile extends React.Component {
   constructor(props) {
@@ -158,27 +159,7 @@ class Stud_Profile extends React.Component {
               <Primary />
             </Row>
             <Row className="all-row">
-              <Container className="background top-10 padding-all skills">
-                <h5>Skills</h5>
-                <p>
-                  <span>HTML</span>
-                  <span>CSS</span>
-                  <span>PHP</span>
-                  <span>Bootstrap</span>
-                </p>
-                <Form>
-                  <Form.Row>
-                    <Col>
-                      <Form.Control placeholder="Skills" />
-                    </Col>
-                    <Col>
-                      <Button variant="primary" type="submit">
-                        Add
-                      </Button>
-                    </Col>
-                  </Form.Row>
-                </Form>
-              </Container>
+              <Skills />
             </Row>
             <Row className="all-row">
               <Container className="background top-10 padding-all skills">

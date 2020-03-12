@@ -18,6 +18,7 @@ class apply extends React.Component {
       this.setState({
         setShow: this.props.show
       });
+      this.applyJob();
     }
   }
 
@@ -27,7 +28,10 @@ class apply extends React.Component {
     //make a post request with the user data
     axios
       .get(
-        'http://localhost:8000/getApplied?idcompany=' + cookie.load('cookie')
+        'http://localhost:8000/getAppliedEvents?idcompany=' +
+          cookie.load('cookie') +
+          '&idevents=' +
+          this.props.idjob
       )
       .then(response => {
         console.log('Status Code : ', response.status);
@@ -37,7 +41,6 @@ class apply extends React.Component {
             authFlag: true,
             data: response.data
           });
-          this.handleClose();
         } else {
           this.setState({
             error:
@@ -54,7 +57,6 @@ class apply extends React.Component {
   };
 
   componentDidMount() {
-    this.applyJob();
     this.setState({
       setShow: this.props.show
     });
@@ -62,18 +64,10 @@ class apply extends React.Component {
 
   render() {
     var printJobs = this.state.data.map(
-      ({
-        idstudent,
-        First_Name,
-        Last_Name,
-        coll_name,
-        degree,
-        major,
-        resume
-      }) => {
+      ({ idstudent, First_Name, Last_Name, coll_name, degree, major }) => {
         return (
           <Row key={idstudent} className={'border-tb top-3'}>
-            <Col xl={9}>
+            <Col xl={12}>
               <Container>
                 <Link to={`/student_prof/` + idstudent}>
                   <h5 className="mbottom-5">{First_Name + ' ' + Last_Name}</h5>
@@ -94,21 +88,6 @@ class apply extends React.Component {
                     </Row>
                   </Col>
                 </Row>
-              </Container>
-            </Col>
-            <Col xl={3}>
-              <Container>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={
-                    `http://localhost:8000/prof_pic/` +
-                    resume.replace('resume', 'file') +
-                    `.pdf`
-                  }
-                >
-                  Resume
-                </a>
               </Container>
             </Col>
           </Row>

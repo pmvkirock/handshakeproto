@@ -5,6 +5,9 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 import { connect } from 'react-redux';
 import { CompanyType } from '../../../../actions';
+import { getMajor } from '../../../../actions';
+import { getProfPic } from '../../../../actions';
+import { getFName } from '../../../../actions';
 
 class signupform extends React.Component {
   constructor(props) {
@@ -44,6 +47,10 @@ class signupform extends React.Component {
       .then(response => {
         console.log('Status Code : ', response.status);
         if (response.status === 200) {
+          console.log(response.data[0].prof_pic);
+          this.props.dispatch(getProfPic(response.data[0].prof_pic));
+          this.props.dispatch(getMajor(response.data[0].major));
+          this.props.dispatch(getFName(response.data[0].First_Name));
           this.setState({
             error: '',
             authFlag: true
