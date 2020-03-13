@@ -53,6 +53,7 @@ class edit extends React.Component {
             deadline: ''
           });
           this.handleClose();
+          this.props.getInfo();
         } else {
           this.setState({
             error:

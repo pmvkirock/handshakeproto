@@ -138,6 +138,7 @@ class Education extends React.Component {
             error: '',
             authFlag: true
           });
+          this.getInfo();
         } else {
           this.setState({
             error:

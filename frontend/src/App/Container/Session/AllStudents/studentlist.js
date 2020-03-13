@@ -49,7 +49,8 @@ class studlist extends React.Component {
         coll_name,
         degree,
         major,
-        pass_year
+        pass_year,
+        skill
       }) => {
         let showJob = 'ShowForm';
 
@@ -67,6 +68,12 @@ class studlist extends React.Component {
 
         let regexMajor = new RegExp(this.props.getMajorFilter, 'gi');
         if (major.match(regexMajor) == null) showJob = 'HideForm';
+
+        if (skill != null) {
+          console.log(true);
+          let regexSkill = new RegExp(this.props.getFilterSkill, 'gi');
+          if (skill.match(regexSkill) == null) showJob = 'HideForm';
+        }
 
         return (
           <Stud
@@ -91,7 +98,8 @@ const mapStateToProps = state => {
   return {
     getStudFilter: state.getStudFilter,
     getSchoolFilter: state.getSchoolFilter,
-    getMajorFilter: state.getMajorFilter
+    getMajorFilter: state.getMajorFilter,
+    getFilterSkill: state.getFilterSkill
   };
 };
 

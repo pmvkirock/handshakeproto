@@ -36,7 +36,7 @@ class Topnav extends React.Component {
     else redirectVar = <Redirect to="/login" />;
     if (cookie.load('cookie')) {
       var prof_pic = '/profile.png';
-      if (this.props.getProfPic != '') {
+      if (this.props.getProfPic != '' && this.props.getProfPic != null) {
         prof_pic =
           `http://localhost:8000/prof_pic/` +
           this.props.getProfPic.replace('Prof_Pic', 'file') +

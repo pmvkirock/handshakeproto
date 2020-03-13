@@ -139,6 +139,38 @@ var jobs = class jobs {
       res.end(JSON.stringify(result));
     });
   }
+
+  insertJob(con, req, res) {
+    var sql =
+      `INSERT INTO job (idcompany, job_title, posting_data, deadline, location, salary, job_des, job_cat, paid) VALUES (` +
+      `'` +
+      req.body.id +
+      `','` +
+      req.body.job_title +
+      `','` +
+      req.body.post +
+      `','` +
+      req.body.deadline +
+      `','` +
+      req.body.location +
+      `','` +
+      req.body.salary +
+      `','` +
+      req.body.des +
+      `','` +
+      req.body.job_cat +
+      `','` +
+      req.body.paid +
+      `')`;
+    console.log(sql);
+    con.query(sql, function(err, result) {
+      res.writeHead(200, {
+        "Content-Type": "application/json"
+      });
+      console.log(JSON.stringify(result));
+      res.end(JSON.stringify(result));
+    });
+  }
 };
 
 module.exports = {

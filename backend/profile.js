@@ -297,6 +297,39 @@ var profile = class profile {
       res.end(JSON.stringify(result));
     });
   }
+
+  insertskillinfo(con, req, res) {
+    var sql =
+      `INSERT INTO student_skills (idstudent, skill_name) VALUES ('` +
+      +req.body.idstudent +
+      `','` +
+      req.body.skill_name +
+      `')`;
+    console.log(sql);
+    con.query(sql, function(err, result, fields) {
+      if (err) throw err;
+      res.writeHead(200, {
+        "Content-Type": "application/json"
+      });
+      console.log(JSON.stringify(result));
+      res.end(JSON.stringify(result));
+    });
+  }
+
+  getskillinfo(con, req, res) {
+    var sql =
+      "SELECT * FROM student_skills where idstudent = '" +
+      req.query.stud_id +
+      "'";
+    con.query(sql, function(err, result, fields) {
+      if (err) throw err;
+      res.writeHead(200, {
+        "Content-Type": "application/json"
+      });
+      console.log(JSON.stringify(result));
+      res.end(JSON.stringify(result));
+    });
+  }
 };
 
 module.exports = {

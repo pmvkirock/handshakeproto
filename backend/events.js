@@ -90,6 +90,7 @@ const events = class events {
       req.query.idcompany +
       ` AND c.idevents = ` +
       req.query.idevents;
+    console.log(sql);
     con.query(sql, function(err, result, fields) {
       if (err) throw err;
       res.writeHead(200, {

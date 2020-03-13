@@ -103,7 +103,7 @@ class Primary extends React.Component {
   render() {
     let picture = '';
     if (this.state.prof_pic == null) {
-      picture = `profile.png`;
+      picture = `/profile.png`;
     } else {
       picture =
         `http://localhost:8000/prof_pic/` +
@@ -113,7 +113,7 @@ class Primary extends React.Component {
     return (
       <Container className="background padding-all prof-info">
         <img
-          src={`/profile.png`}
+          src={picture}
           alt="user pic"
           style={{ width: 100 + 'px', borderRadius: 50 + '%' }}
         />

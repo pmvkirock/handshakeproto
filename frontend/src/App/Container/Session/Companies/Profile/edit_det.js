@@ -214,7 +214,7 @@ class edit extends React.Component {
                 type="text"
                 placeholder="Enter Website"
                 value={this.state.web}
-                onChange={this.web}
+                onChange={this.website}
               />
             </Form.Group>
             <Form.Group controlId="formEmail">
@@ -228,7 +228,12 @@ class edit extends React.Component {
             </Form.Group>
             <Form.Group controlId="formWebsite">
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows="3" value={this.state.des} />
+              <Form.Control
+                as="textarea"
+                rows="3"
+                value={this.state.des}
+                onChange={this.desc}
+              />
             </Form.Group>
             <Form.Group controlId="formFile">
               <Form.Control

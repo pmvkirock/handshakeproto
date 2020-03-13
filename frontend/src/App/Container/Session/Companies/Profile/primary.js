@@ -60,7 +60,7 @@ class Primary extends React.Component {
         prof_pic
       }) => {
         var pic;
-        if (prof_pic == '') {
+        if (prof_pic == '' || prof_pic == null || prof_pic == undefined) {
           pic = '/profile.png';
         } else {
           pic =
@@ -78,35 +78,41 @@ class Primary extends React.Component {
                   style={{ width: 70 + 'px', marginTop: 20 + 'px' }}
                 />
               </Col>
-              <Col xl={11}>
-                <Row className="top-10 mleft-10">
-                  <h3>{company_name}</h3>
-                </Row>
-                <Row className="mleft-10">
-                  <Col xl={7}>
-                    <Row>
-                      <h6 className="small-grey">{company_location}</h6>
-                    </Row>
-                    <Row>
-                      <h6 className="small-grey">{noofemp} Employees</h6>
-                    </Row>
-                  </Col>
-                  <Col xl={5}>
-                    <Row>
-                      <h6 className="small-grey">{company_type}</h6>
-                    </Row>
-                    <Row>
-                      <h6 className="small-grey">{ownership}</h6>
-                    </Row>
-                  </Col>
-                </Row>
+              <Col xl={11} style={{ width: 100 + '%' }}>
+                <Container>
+                  <Row className="top-10 mleft-10">
+                    <Container>
+                      <h3>{company_name}</h3>
+                    </Container>
+                  </Row>
+                  <Row className="mleft-10">
+                    <Container>
+                      <Col xl={7}>
+                        <Row>
+                          <h6 className="small-grey">{company_location}</h6>
+                        </Row>
+                        <Row>
+                          <h6 className="small-grey">{noofemp} Employees</h6>
+                        </Row>
+                      </Col>
+                      <Col xl={5}>
+                        <Row>
+                          <h6 className="small-grey">{company_type}</h6>
+                        </Row>
+                        <Row>
+                          <h6 className="small-grey">{ownership}</h6>
+                        </Row>
+                      </Col>
+                    </Container>
+                  </Row>
+                </Container>
               </Col>
             </Row>
             <Row className="top-10">
-              <Col xl={8} style={{ paddingLeft: 0 + 'px' }}>
+              <Col xl={8} style={{ paddingLeft: 0 + 'px', width: 100 + '%' }}>
                 <Desc des={company_description} />
               </Col>
-              <Col xl={4} style={{ paddingRight: 0 + 'px' }}>
+              <Col xl={4} style={{ paddingRight: 0 + 'px', width: 100 + '%' }}>
                 <Contact
                   email={email}
                   website={website}

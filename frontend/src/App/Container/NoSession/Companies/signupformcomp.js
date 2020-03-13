@@ -63,6 +63,7 @@ class signupform extends React.Component {
             error: '',
             authFlag: true
           });
+          alert('Successfully Created! Please Conitnue to Login');
         } else {
           this.setState({
             error:

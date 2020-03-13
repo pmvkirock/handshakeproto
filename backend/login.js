@@ -15,11 +15,8 @@ var login = class login {
       id = result[0].idstudent;
 
       if (pass === req.body.password) {
-        res.cookie("cookie", id, {
-          maxAge: 900000,
-          httpOnly: false,
-          path: "/"
-        });
+        res.cookie("cookie", id);
+        console.log(res.cookie("cookie", id));
 
         res.writeHead(200, {
           "Content-Type": "text/plain"

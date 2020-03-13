@@ -184,7 +184,11 @@ class JobCont extends React.Component {
           />
         </Col>
         {add}
-        <NewJob show={this.state.setShow} handleClose={this.handleClose} />
+        <NewJob
+          show={this.state.setShow}
+          handleClose={this.handleClose}
+          getInfo={this.getInfo}
+        />
       </Row>
     );
   }

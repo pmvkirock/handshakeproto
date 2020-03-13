@@ -214,14 +214,21 @@ class Primary extends React.Component {
   }
 
   render() {
+    var prof_pic = '/profile.png';
+    if (
+      this.state.prof_pic != '' &&
+      this.state.prof_pic != null &&
+      this.state.prof_pic != undefined
+    ) {
+      prof_pic =
+        `http://localhost:8000/prof_pic/` +
+        this.state.prof_pic.replace('Prof_Pic', 'file') +
+        `.jpeg`;
+    }
     return (
       <Container className="background padding-all prof-info">
         <img
-          src={
-            `http://localhost:8000/prof_pic/` +
-            this.state.prof_pic.replace('Prof_Pic', 'file') +
-            `.jpeg`
-          }
+          src={prof_pic}
           alt="user pic"
           style={{ width: 100 + 'px', borderRadius: 50 + '%' }}
         />

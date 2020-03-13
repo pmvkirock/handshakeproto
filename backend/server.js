@@ -8,6 +8,7 @@ var cors = require("cors");
 var mysql = require("mysql");
 app.set("view engine", "ejs");
 app.use("/prof_pic", express.static("public/uploads"));
+app.use(cookieParser());
 
 const multer = require("multer");
 
@@ -21,7 +22,12 @@ const events = require("./events");
 app.get("/", (req, res) => res.send("Hello World!"));
 
 //use cors to allow cross origin resource sharing
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true
+  })
+);
 
 //use express session to maintain session data
 app.use(
@@ -83,13 +89,13 @@ var con = mysql.createConnection({
 app.post("/signupStud", function(req, res) {
   console.log("Req Body : ", req.body);
   var ins = new insert.insert();
-  ins.insert_stud(con, req.body);
+  ins.insert_stud(con, req.body, res);
 });
 
 app.post("/signupComp", function(req, res) {
   console.log("Req Body : ", req.body);
   var ins = new insert.insert();
-  ins.insert_comp(con, req.body);
+  ins.insert_comp(con, req.body, res);
 });
 
 //Route to handle Post Request Call
@@ -267,4 +273,24 @@ app.get("/getMyEvents", function(req, res) {
   job.getMyEvents(con, req, res);
 });
 
+app.get("/getSkill", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new stud_profile.profile();
+  job.getskillinfo(con, req, res);
+});
+
+app.get("/getSkillName", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new students.students();
+  job.getskillinfo(con, req, res);
+});
+
+app.post("/insertSkill", function(req, res) {
+  console.log("Req Body : ", req.body);
+  var job = new stud_profile.profile();
+  job.insertskillinfo(con, req, res);
+});
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+module.exports = app;
